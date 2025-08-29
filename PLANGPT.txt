@@ -1,0 +1,21 @@
+MiniShell/
+│
+├─ include/               # fichiers header (.hpp/.h)
+│   ├─ Shell.hpp          # classe principale du shell
+│   ├─ Command.hpp        # gestion d’une commande (parsing, arguments)
+│   ├─ Builtins.hpp       # commandes internes (cd, pwd, exit, etc.)
+│   └─ Utils.hpp          # fonctions utilitaires (parsing, affichage, etc.)
+│
+├─ src/                   # fichiers sources (.cpp)
+│   ├─ main.cpp           # point d’entrée, boucle principale
+│   ├─ Shell.cpp          # implémentation de la classe Shell
+│   ├─ Command.cpp        # implémentation des commandes
+│   ├─ Builtins.cpp       # implémentation des built-ins
+│   └─ Utils.cpp          # implémentation des fonctions utilitaires
+│
+├─ tests/                 # tests unitaires ou scripts de test
+│   └─ test_shell.cpp     
+│
+├─ CMakeLists.txt         # pour construire le projet avec CMake
+├─ README.md              # description du projet, instructions
+└─ .gitignore             # si tu utilises git

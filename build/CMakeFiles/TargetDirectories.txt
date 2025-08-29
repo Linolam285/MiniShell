@@ -1,0 +1,3 @@
+/home/lino/cpp/MiniShell/build/CMakeFiles/MiniShell.dir
+/home/lino/cpp/MiniShell/build/CMakeFiles/edit_cache.dir
+/home/lino/cpp/MiniShell/build/CMakeFiles/rebuild_cache.dir

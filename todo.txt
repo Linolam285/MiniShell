@@ -1,0 +1,1 @@
+default constructor (Commands) to reduce copied code

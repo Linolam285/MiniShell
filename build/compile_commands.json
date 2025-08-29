@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/lino/cpp/MiniShell/build",
+  "command": "g++   -g -std=gnu++17 -o CMakeFiles/MiniShell.dir/src/main.cpp.o -c /home/lino/cpp/MiniShell/src/main.cpp",
+  "file": "/home/lino/cpp/MiniShell/src/main.cpp",
+  "output": "CMakeFiles/MiniShell.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/lino/cpp/MiniShell/build",
+  "command": "g++   -g -std=gnu++17 -o CMakeFiles/MiniShell.dir/src/Builtins.cpp.o -c /home/lino/cpp/MiniShell/src/Builtins.cpp",
+  "file": "/home/lino/cpp/MiniShell/src/Builtins.cpp",
+  "output": "CMakeFiles/MiniShell.dir/src/Builtins.cpp.o"
+},
+{
+  "directory": "/home/lino/cpp/MiniShell/build",
+  "command": "g++   -g -std=gnu++17 -o CMakeFiles/MiniShell.dir/src/Commands.cpp.o -c /home/lino/cpp/MiniShell/src/Commands.cpp",
+  "file": "/home/lino/cpp/MiniShell/src/Commands.cpp",
+  "output": "CMakeFiles/MiniShell.dir/src/Commands.cpp.o"
+},
+{
+  "directory": "/home/lino/cpp/MiniShell/build",
+  "command": "g++   -g -std=gnu++17 -o CMakeFiles/MiniShell.dir/src/Utils.cpp.o -c /home/lino/cpp/MiniShell/src/Utils.cpp",
+  "file": "/home/lino/cpp/MiniShell/src/Utils.cpp",
+  "output": "CMakeFiles/MiniShell.dir/src/Utils.cpp.o"
+},
+{
+  "directory": "/home/lino/cpp/MiniShell/build",
+  "command": "g++   -g -std=gnu++17 -o CMakeFiles/MiniShell.dir/src/Shell.cpp.o -c /home/lino/cpp/MiniShell/src/Shell.cpp",
+  "file": "/home/lino/cpp/MiniShell/src/Shell.cpp",
+  "output": "CMakeFiles/MiniShell.dir/src/Shell.cpp.o"
+}
+]
