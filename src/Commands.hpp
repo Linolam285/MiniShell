@@ -3,6 +3,7 @@
 #include <array>
 #include <unordered_map>
 #include <functional>
+#include <iostream>
 
 #include "Builtins.hpp"
 #include "Shell.hpp"
@@ -30,7 +31,6 @@ class Commands {
 
     
         std::unordered_map<std::string, std::function<void()>> commandsH;
-        
 
         Commands(Shell& shell):
             m_command_name {},
@@ -43,6 +43,8 @@ class Commands {
         
         static Commands parseCommand(const std::string& comm, Shell& shell); // parse to get vector of args options operators and command name
         void executeCommand(); //delegates to Builtins etc
+        void executeExternalCommand();
+        std::vector<const char*> svToChar(std::vector<std::string> v);
         std::string getCommandName() const {return m_command_name;}
         std::vector<std::string> getArgs() const {return m_args;}
         std::vector<std::string> getOptions() const {return m_options;}
@@ -73,6 +75,10 @@ class Commands {
             };
             commandsH["help"] = [this](){Builtins::help();};
         }
+        bool isExternal() {
+            std::array<std::string,2> externalCommandsArray = {"ls", "cat"};
+            return std::find(externalCommandsArray.begin(), externalCommandsArray.end(), m_command_name) != externalCommandsArray.end();
+        }
         
     private:
         const std::string m_command_name;
@@ -81,8 +87,9 @@ class Commands {
         std::vector<std::string> m_operators {};
         Shell& m_shell;
 
-        Commands(const std::string& command_name, Shell& shell):  // pwd, exit, history
+        Commands(const std::string& command_name, std::vector<std::string> args, Shell& shell):  // pwd, exit, history
             m_command_name {command_name},
+            m_args {args},
             m_shell {shell} {
                 init();
             }

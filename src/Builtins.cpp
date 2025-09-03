@@ -1,21 +1,26 @@
 #include "Builtins.hpp"
 #include "Shell.hpp"
 
-
+#include <unistd.h>
+#include <limits.h>
 #include <string>
 #include <iostream>
 
-void Builtins::exit(Shell& shell, std::string exitCode = "0") {
+void Builtins::exit(Shell& shell, std::string exitCode) {
     shell.setExitCode(std::stoi(exitCode));
     shell.setRunning(false);
 }
 
 void Builtins::echo(std::string& message) {
-    std::cout << message;
+    std::cout << message << "\n";
 }
 
 void Builtins::pwd(Shell& shell) {
-    std::cout << shell.getPwd();
+    char buffer[PATH_MAX];
+    if (getcwd(buffer,PATH_MAX) == NULL) {
+        std::cout << "ERROR\n";
+    }
+    std::cout << buffer << "\n";
 }
 
 void Builtins::help() {
@@ -23,5 +28,10 @@ void Builtins::help() {
 }
 
 void Builtins::cd(Shell& shell, std::string &dir) {
-    shell.setPwd(dir);
+    if (chdir(dir.c_str()) == 0) {
+        shell.setPwd(dir);
+    } else {
+        std::string message = "Invalid Directory\n";
+        Builtins::echo(message);
+    }
 }

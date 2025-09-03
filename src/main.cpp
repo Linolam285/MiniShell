@@ -11,7 +11,6 @@ int main() {
     Shell shell {};
     while (shell.getRunning()) {
         std::string s_command {};
-        std::cout << "Type command: ";
         std::getline(std::cin, s_command);
         Commands command {Commands::parseCommand(s_command,shell)};
         command.executeCommand();

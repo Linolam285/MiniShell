@@ -6,6 +6,8 @@
 #include <string>
 #include <regex>
 #include <algorithm>
+#include <unistd.h>
+#include <sys/wait.h>
 
 Commands Commands::parseCommand(const std::string& comm, Shell& shell) {
     /*
@@ -34,7 +36,7 @@ Commands Commands::parseCommand(const std::string& comm, Shell& shell) {
     }
 
     if (options.empty() && args.size() == 1 && operators.empty()) {
-        return Commands{args[0], shell};
+        return Commands{args[0], args, shell};
     }
     if (options.empty() && args.size() == 2 && operators.empty()) {
         return Commands{args[0], args, options, shell};
@@ -51,18 +53,50 @@ Commands Commands::parseCommand(const std::string& comm, Shell& shell) {
     return Commands{shell};
 }
 
+std::vector<const char*> Commands::svToChar(std::vector<std::string> v) {
+    std::vector<const char*> argv;
+    for (auto& s: v) {
+        argv.push_back(const_cast<char*>(s.c_str()));
+    }
+    argv.push_back(nullptr);
+    return argv;
+}
+
 void Commands::executeCommand() {
+    if (isExternal()) {
+        std::cout << "COMMAND NAME : " << m_command_name << "\n";
+        std::cout << "M_ARGS[0] : " << m_args[0] << "\n";
+        
+        if ((m_command_name == "cat") && m_args.size() < 2) {
+            std::cout << "Error: missing arguments\n";
+            return;
+        }
+
+        pid_t pid = fork();
+        if (pid == -1) {
+            std::cerr << "Error: fork failed\n";
+            return;
+        }
+
+        if (pid == 0) {
+            chdir(m_shell.getPwd().c_str());
+            std::vector<const char*> argv = svToChar(m_args);
+            execvp(argv[0], const_cast<char* const*>(argv.data()));
+            std::cerr << "Error: Execvp failed\n";
+            _exit(1);
+        } else {
+            int status;
+            waitpid(pid, &status, 0);
+        }
+        return;
+
+
+    }
     auto it = commandsH.find(m_command_name);
     if (it != commandsH.end()) {
         it->second();
     } else {
-        auto it = commandsH.find("exit");
-        if (it != commandsH.end()) {
-            commandsH["exit"]();
-        } else {
-            m_shell.setRunning(false);
-            std::cerr << "FUNCTION NOT FOUND";
-        }
+        std::cout << "FUNCTION NOT FOUND\n";
     }
 }
 
